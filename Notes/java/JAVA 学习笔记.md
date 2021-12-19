@@ -7,7 +7,7 @@
 - **方法**：方法就是行为，一个类可以有很多方法。逻辑运算、数据修改以及所有动作都是在方法中完成的。
 - **实例变量**：每个对象都有独特的实例变量，对象的状态由这些实例变量的值决定。
 
-![avatar](E:\Apersonal\awesome-programming-books\Notes\pictures\662E827A-FA32-4464-B0BD-40087F429E98.jpg)
+![avatar](C:\Users\Admin\Desktop\Notes\awesome-programming-books\Notes\assets\662E827A-FA32-4464-B0BD-40087F429E98.jpg)
 
  
 
