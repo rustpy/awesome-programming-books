@@ -6,15 +6,11 @@ BS架构：Browser（客户端） ----HTTP----Server（服务端）
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\11c52142a47722f17950927f2c58e059faf43d7a.png)
 
-
-
 ### **1.fiddler抓包原理**
 
 系统默认网络代理为自动设置代理，当fiddler打开后则会改成手动设置代理，端口号为8888
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\2021-12-29-16-16-50-image.png)
-
-
 
 ### **2.HTTP协议详解**
 
@@ -27,8 +23,6 @@ http请求报文组成：请求行、请求头部、请求正文。
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\2021-12-29-17-30-00-image.png)
 
 请求方法：GET、POST、PUT、DELECT、HEAD、OPTIONS、TRACE
-
-
 
 ### **3.fiddler工具详解**
 
@@ -51,13 +45,9 @@ Stream：流模式/缓冲模式
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\f8ab690f1d939480ea713aef55f696730c4d2822.jpg)
 
-
-
 **监控面板：**
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\e37399fe24795cbd00b38833510d4c316c85b8af.jpg)
-
-
 
 **监控面板：**
 
@@ -67,10 +57,6 @@ Stream：流模式/缓冲模式
 4. 返回的各种类型数据的大小统计以及饼图展现。
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\1b1a47c29fb73a773700cf542934cf468e3f9df4.jpg)
-
-
-
-
 
 每个网络请求都会经历域名解析、建立连接、发送请求、接受数据等阶段。把多个请求以时间作为 X 轴，用图表的形式展现出来，就形成了瀑布图。在Fiddler中，只要在左侧选中一些请求，右侧选择Timeline标签，就可以看到这些请求的瀑布图。
 
@@ -90,8 +76,6 @@ Stream：流模式/缓冲模式
 
 - 请求前面的红色圆圈表示这个连接是新建的，绿色表示是复用的。上面的圆圈表示的是浏览器到 Fiddler 的连接，下面的圆圈是 Fiddler 到服务端的连接。
 
-
-
 **状态面板：**
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\bcb582c3af51e872f281240ae79349378bafdee2.jpg)
@@ -108,8 +92,6 @@ Stream：流模式/缓冲模式
 | bpu     | 截获request              |
 | bpafter | 截获response             |
 
-
-
 **HOST常见功能应用：**
 
 - 模拟各类场景
@@ -123,26 +105,14 @@ Stream：流模式/缓冲模式
 - 禁用缓存，方便调试一些静态文件或测试服务端响应情况
 
 - 根据一些场景自定义规则
-  
-  
 
 **低网速测试：**
 
 低网速模拟设置 Rules > Performance > Stimulate Modem Speeds。
 
-
-
 **conpare(对比文本)：**
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\b446c28f5dd03f66f9216a4c7a474f5d467b5080.jpg)
-
-
-
-
-
-
-
-
 
 **Filters(过滤监控)**
 
@@ -153,8 +123,6 @@ Stream：流模式/缓冲模式
 ```
 ![Filter_2](http://upload-images.jianshu.io/upload_images/947566-b6ed61685e13315e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ```
-
-
 
 **AutoResponder(请求重定向)**
 
@@ -168,23 +136,17 @@ Stream：流模式/缓冲模式
 ![重定向](http://upload-images.jianshu.io/upload_images/947566-18f9c105596ef543.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ```
 
-
-
 **移动端抓包设置：**
 
 Fiddler不但能截获各种浏览器发出的HTTP请求, 也可以截获各种智能手机发出的HTTP/HTTPS请求。  
 Fiddler能捕获IOS,Andriod,WinPhone,设备发出的请求，同理，也可以截获IPad, MacBook的等设备发出的HTTP/HTTPS。  
 前提条件是：安装Fiddler的机器，跟Iphone 在同一个网络里， 否则IPhone不能把HTTP发送到Fiddler的机器上来。
 
-
-
 Fiddler设置打开Fiddler, Tools-> Fiddler Options。（配置完后记得要重启Fiddler）.
 
 选中"Allow remote computers to connect". 是允许别的机器把HTTP/HTTPS请求发送到Fiddler上来。
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\d657c351141e58f4f58adefff8e358af793b4c95.jpg)
-
-
 
 - **APP**
 
@@ -199,15 +161,5 @@ Fiddler设置打开Fiddler, Tools-> Fiddler Options。（配置完后记得要�
 - 首先要知道Fiddler所在的机器的IP地址：　假如我安装了Fiddler的机器的IP地址是:192.168.1.104打开IPhone 的Safari, 访问 [http://192.168.1.104:8888](https://link.jianshu.com/?t=http://192.168.1.104:8888/)， 点"FiddlerRoot certificate" 然后安装证书
   
   ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\3de66e173a447520dc77b72ecd0955a3b3c336e8.jpg)
-
-
-
-
-
-
-
-
-
-
 
 ## 二、**fiddler应用实战**

@@ -9,13 +9,9 @@
 - BDD：行为驱动开发（Behavior Driven Development）
 - DDD：领域驱动开发（Domain Drive Design）
 
-
-
 开发流程（W 模型）：
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\c047b7d7e5ab1b28b708f745730a5aa3bedfa78c.png)
-
-
 
 BDD 流程：
 
@@ -26,8 +22,6 @@ BDD 流程：
 从层次上来说，BDD 是基于 TDD 的，或者说在自动化测试中，TDD 所在的位置比较底层，是基础，而 BDD 则是它的演进版本。
 
 BDD 核心的是，开发人员、QA、非技术人员和用户都参与到项目的开发中，彼此协作。BDD 强调从用户的需求出发，最终的系统和用户的需求一致。BDD验证代码是否真正符合用户需求，因此 BDD 是从一个较高的视角来对验证系统是否和用户需求相符。
-
-
 
 BDD交互流程：
 
@@ -41,40 +35,12 @@ BDD交互流程：
 - BDD 一般采用集成测试，TDD 一般采用单元测试
 - BDD 不只是自动化测试
 
-
-
 ## **BDD-UI-Testing 实践模式**
 
 例如：
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\7e8176c2bf190f781d129c65f4be89bea680ef39.jpg)
 
-
-
 获取的自动化测试报告：
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\9eb308f70d58a6147887ddacb8469eaa742f0688.jpg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
