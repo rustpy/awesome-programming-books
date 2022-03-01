@@ -8,6 +8,8 @@
 - ATDD：验收测试驱动开发（Acceptance Test Driven Development）
 - BDD：行为驱动开发（Behavior Driven Development）
 - DDD：领域驱动开发（Domain Drive Design）
+  
+  BDD的基本语法为Gherkin（黄瓜籽）
 
 开发流程（W 模型）：
 
@@ -23,9 +25,15 @@ BDD 流程：
 
 BDD 核心的是，开发人员、QA、非技术人员和用户都参与到项目的开发中，彼此协作。BDD 强调从用户的需求出发，最终的系统和用户的需求一致。BDD验证代码是否真正符合用户需求，因此 BDD 是从一个较高的视角来对验证系统是否和用户需求相符。
 
-BDD交互流程：
+BDD工作流程：
 
-![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\7e3f6597d22ffecb7a9c7601631c75d897c2a44e.jpg)
+<img src="file:///E:/Apersonal/awesome-programming-books/Notes/工具学习/assets/76d39959cc5b27ee5929281f9e204a3565ff0fdc.png" title="" alt="" width="326">
+
+![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\1ecd1aaafe6207c99c35def6ea48c75a7296c7cf.png)
+
+
+
+
 
 总结：
 

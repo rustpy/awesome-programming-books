@@ -285,9 +285,3 @@ a >>> 2 = 15
 ## 4.常见的几种类
 
 Java Number 和 Math类
-
-![](D:\Users\yong.peng\Pictures\0wy0i1200000dodjz7015.png)
-
-
-
-![](E:\Apersonal\awesome-programming-books\Notes\java\assets\1903d2c3f752a92b33bb619524c2f2c7bfce43a1.png)
