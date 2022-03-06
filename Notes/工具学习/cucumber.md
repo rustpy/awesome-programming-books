@@ -350,4 +350,22 @@ Feature Index projects
 
 
 
-测试用
+### 2.3 cucumber-Hook
+
+cucumber执行生命周期：
+
+![20220307001822.png](C:\Users\Admin\Pictures\cucumber\20220307001822.png)
+
+
+
+Hook有两种执行方式
+
+BeforeAll/AffterAll：
+
+在所有Scenario执行之前和之后执行
+
+1：方法必须是静态的
+
+2：不接受任何参数
+
+3：Order定义执行顺序
