@@ -1,5 +1,7 @@
 # cucumber
 
+**cucumber文档说明**：[Guides - Cucumber Documentation](https://cucumber.io/docs/guides/)
+
 ## **BDD UI 自动化测试理念**
 
 在说 BDD-UI-Testing 之前，我们先来看看 TDD、ATDD、BDD、DDD 这 4 个开发模式。
@@ -348,24 +350,473 @@ Feature: Convert transaction
 Feature Index projects
 ```
 
-
-
 ### 2.3 cucumber-Hook
 
-cucumber执行生命周期：
+**cucumber执行生命周期：**
 
-![20220307001822.png](C:\Users\Admin\Pictures\cucumber\20220307001822.png)
+![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\1d5675f0acdc247983d12078c3aac7f2836799a9.png)
 
 
 
-Hook有两种执行方式
+**Hook有两种执行方式**
 
 BeforeAll/AffterAll：
 
 在所有Scenario执行之前和之后执行
 
-1：方法必须是静态的
+▪ 方法必须是静态的
 
-2：不接受任何参数
+▪ 不接受任何参数
 
-3：Order定义执行顺序
+▪ Order定义执行顺序
+
+
+
+## 3、Step参数管理
+
+### 3.1 简单数据
+
+3.1.1 cucumber几种常见的数据类型（直接输入型）：
+
+{int}：匹配整型数据，例如71或-19
+
+{float}:  匹配浮点型数字，如3.6
+
+{word}：匹配没有空格的字符，如banana（banana split 带有空格，不能匹配）
+
+{string}：匹配字符串，例如“banana split”
+
+{} anonymous：匹配任意字符（/.*/等）
+
+
+
+3.1.2 cucumber-JVM-additions（JVM自带类型）
+
+在JVM上，还有biginteger、bigdecimal、byte、short和double的附加参数类型。
+
+匿名参数类型将使用对象映射器转换为步骤定义的参数类型。
+
+cucumber自带一个内置的对象映射器，可以处理大多数基本类型。除了Enum，它支持转换到BigInterger，BigDecimal
+
+**例如：**
+
+```java
+I have a {color} ball
+
+@ParameterType("red|blue|yellow")    // regexp 需要使用正则表达式
+public Color color(String color){    // type,name(from method)
+    return new Color(color)          // transformer function
+}
+
+
+```
+
+
+
+3.1.3 Custom Parameter types（自定义类型）
+
+自定义类型。比如自定义一种颜色的方法，然后再步骤定义中引入。
+
+
+
+### 3.2 可选文本
+
+可选文本：
+
+```java
+I have {int} cucumber(s) in my belly
+
+//会匹配以下两种形式
+I have 1 cucumber in my belly
+I have 42 cucumbers in my belly
+```
+
+
+
+备选文本：
+
+```java
+I have {int} cucumber(s) in my belly/stomach
+
+//会匹配这些文本中的任何一个
+I have 42 cucumbers in my belly
+I have 42 cucumbers in my stomach
+```
+
+
+
+转义字符：
+
+![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\efe427200423340035feb2e305536075ade3f403.png)
+
+
+
+### 3.3 多行数据
+
+ Doc String
+
+Doc String 可以方便地将较大地文本传递给步骤定义
+
+文本由三行双引号组成地分隔符分割：
+
+```java
+  Scenario: Multiline Step Arguments demo
+    Given a blog post named "Random" with Markdown body
+      """markdown
+      Some Title, Eh?
+      ===============
+      Here is the first paragraph of my blog post. Lorem ipsum dolor sit amet,
+      consectetur adipiscing elit.
+      """
+```
+
+
+
+Data Tables 
+
+Data Tables 可以方便地将值列表传递给步骤定义：
+
+```java
+    Given the following users exist:
+      | name   | email              | twitter         |
+      | Aslak  | aslak@cucumber.io  | @aslak_hellesoy |
+      | Julien | julien@cucumber.io | @jbpros         |
+      | Matt   | matt@cucumber.io   | @mattwynne      |
+```
+
+
+
+
+
+### 3.4 Cucumber Transformers
+
+Cucumber 表达式参数（Parameters）、Data Tables和Doc Strings可以转换为任意的java对象。分为以下几种转换方式：
+
+▪ Parament Type
+
+▪ Data Table Type
+
+▪ Empty Cells
+
+▪ Transposing Tables
+
+▪ Defaulr Transformers
+
+
+
+feature & steps 代码示例：
+
+```java
+Feature: sample step arguments demo
+  ... ...
+  Scenario: for step
+    Given I have 42 cucumbers in my belly
+    Given I have a blue ball
+
+  Scenario: Optional text demo
+    Given I have 1 apple in my belly
+    And I have 42 apples in my belly
+
+  Scenario: Alternative text demo
+    Given I have 1 banana in my belly
+    Given I have 3 bananas in my stomach
+
+  Scenario: Escaping demo
+    Given I have 1 {what} beef in my belly (amazing!)
+
+
+  Scenario: Multiline Step Arguments demo
+    Given a blog post named "Random" with Markdown body
+      """markdown
+      Some Title, Eh?
+      ===============
+      Here is the first paragraph of my blog post. Lorem ipsum dolor sit amet,
+      consectetur adipiscing elit.
+      """
+
+    Given the following users exist:
+      | name   | email              | twitter         |
+      | Aslak  | aslak@cucumber.io  | @aslak_hellesoy |
+      | Julien | julien@cucumber.io | @jbpros         |
+      | Matt   | matt@cucumber.io   | @mattwynne      |
+
+
+  Scenario: Cucumber Transformers - Param Type
+    Given today is 2021-11-19
+
+
+  Scenario: Cucumber Transformers - Data Tables Type
+#    Given a list of authors in a table
+#      | firstName   | lastName | birthDate  |
+#      | Annie M. G. | Schmidt  | 1911-03-20 |
+#      | Roald       | Dahl     | 1916-09-13 |
+#      | Alan        | Luo      |            |
+#      | Clark       | Peng     |   [EmptyStr]  |
+    Given a list of authors in a table
+      | firstName   | Alan          | Clark  |
+      | lastName    | Luo           | Peng |
+      | birthDate   | 1986-09-17    | 1916-09-13 |
+
+
+  Scenario: Cucumber Transformers - Default Transformers
+    Given this is Json data: {firstName: 'alan',lastName: 'Luo',birthDate:'1986-09-17'}
+
+```
+
+```java
+package behavior;
+
+import entities.Author;
+import entities.Color;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.DataTableType;
+import io.cucumber.java.ParameterType;
+import io.cucumber.java.Transpose;
+import io.cucumber.java.en.Given;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+public class StepArgumentSteps {
+    @Given("I have {int} cucumbers in my belly")
+    public void i_have_cucumbers_in_my_belly(int number) {
+        System.out.println(number);
+    }
+    @Given("I have a {color} ball")
+    public void i_have_a_color_ball(Color color) {
+        System.out.println(color.getColor());
+    }
+
+    @ParameterType("red|blue|yellow")
+    public Color color(String color) {
+        return new Color(color);
+    }
+
+    @Given("I have {int} apple(s) in my belly")
+    public void i_have_apple_in_my_belly(int number) {
+    }
+
+    @Given("I have {int} banana(s) in my belly/stomach")
+    public void i_have_banana_in_my_belly_stomach(int number) {
+    }
+
+    @Given("I have {int} \\{what} beef in my belly \\(amazing!)")
+    public void i_have_beef_in_my_belly_amazing(int number) {
+    }
+
+    @Given("a blog post named {string} with Markdown body")
+    public void a_blog_post_named_with_markdown_body(String name, String docString) {
+        // Write code here that turns the phrase above into concrete actions
+        System.out.println(docString);
+    }
+
+    @Given("the following users exist:")
+    public void the_following_users_exist(DataTable dataTable) {
+        System.out.println(dataTable.cell(1, 0));
+    }
+
+//    @Given("I have {float} cucumbers in my belly")
+//    public void i_have_cucumbers_in_my_belly(float number) {
+//        System.out.println(number);
+//    }
+
+//    @Given("I have {int} {word} in my belly")
+//    public void i_have_word_in_my_belly(int number,String str) {
+//        System.out.println(number);
+//        System.out.println(str);
+//    }
+
+    @ParameterType("([0-9]{4})-([0-9]{2})-([0-9]{2})")
+    public LocalDate isDate(String year, String month, String day) {
+        return LocalDate.of(
+                Integer.parseInt(year),
+                Integer.parseInt(month),
+                Integer.parseInt(day));
+    }
+    @Given("today is {isDate}")
+    public void today_is(LocalDate date) {
+        System.out.println("The date is:" + date.toString());
+    }
+
+    @DataTableType(replaceWithEmptyString = "[EmptyStr]")
+    public  Author authorEntryTransformer(Map<String,String> entry) {
+        Author author = new Author();
+        author.setFirstName(entry.get("firstName"));
+        author.setLastName(entry.get("lastName"));
+        author.setBirthDate(entry.get("birthDate"));
+        return author;
+    }
+    @Given("a list of authors in a table")
+    public void a_list_of_authors_in_a_table(@Transpose List<Author> authors) {
+        for (Author author : authors) // @Transpose 作用为将参数取值从行转换为列。
+            System.out.println(String.format("author:[%s,%s,%s]", author.getFirstName(), author.getLastName(), author.getBirthDate()));
+    }
+
+
+    @Given("this is Json data: {}")
+    public void this_is_json_data(Author author) {
+        System.out.println(String.format("From Json author:[%s,%s,%s]", author.getFirstName(), author.getLastName(), author.getBirthDate()));
+    }
+}
+
+
+```
+
+Empty Cells
+
+Gherkin中的数据表不能明确表示为空或者空字符串。
+
+cucumber将空单元格解释为null。通过replaceWithEmptyString将null转换为空。避免空指针的问题。
+
+
+
+Transposing Tables
+
+通过使用@Transpose注解数据表参数（或数据表要转换成的参数）可以转换数据表。
+
+```java
+@ Transpose 作用为将参数取值从行改变为列（当表为纵向的表格时）。
+   Scenario: Cucumber Transformers - Data Tables Type
+#    Given a list of authors in a table
+#      | firstName   | lastName | birthDate  |
+#      | Annie M. G. | Schmidt  | 1911-03-20 |
+#      | Roald       | Dahl     | 1916-09-13 |
+#      | Alan        | Luo      |            |
+#      | Clark       | Peng     |   [EmptyStr]  |
+    Given a list of authors in a table
+      | firstName   | Alan          | Clark  |
+      | lastName    | Luo           | Peng |
+      | birthDate   | 1986-09-17    | 1916-09-13 |
+```
+
+
+
+### 4.5 Default Transformers
+
+默认transformer器允许我们指定在没有定义transformer时使用的transformer。
+
+可以将字符串转换为json格式的对象进行传递。将字符串表示形式转换为java对象。
+
+@DefaultParameterTransformer
+
+@DefaultDataTableEntryTransformer
+
+@DefaultDataTableCellTransformer
+
+需要下载Gson相关的依赖包：[Maven Repository: com.google.code.gson » gson » 2.8.9](https://mvnrepository.com/artifact/com.google.code.gson/gson/2.8.9)
+
+behavior:
+
+```java
+package behavior;
+
+import com.google.gson.Gson;
+import io.cucumber.java.DefaultDataTableCellTransformer;
+import io.cucumber.java.DefaultDataTableEntryTransformer;
+import io.cucumber.java.DefaultParameterTransformer;
+
+import java.lang.reflect.Type;
+
+public class DataTableStepDefinitions {
+    private final Gson gson = new Gson();
+
+    @DefaultParameterTransformer
+    @DefaultDataTableEntryTransformer
+    @DefaultDataTableCellTransformer
+    public Object defaultTransformer(Object fromValue, Type toValueType) {
+        return gson.fromJson((String)fromValue,toValueType);
+    }
+}
+```
+
+Feature:
+
+```java
+  Scenario: Cucumber Transformers - Default Transformers
+    Given this is Json data: {firstName: 'alan',lastName: 'Luo',birthDate:'1986-09-17'}
+```
+
+
+
+## 4、状态管理
+
+
+
+4.1 概念简述：
+
+
+
+什么是状态管理？
+
+* 框架程序维护对象生命周期方式
+
+* T所有用例执行框架都提供了状态管理
+
+*重要的是要防止由一个场景产生的状态泄露给其他场景。泄露的场景状态会使场景变得脆弱并难以单独运行。
+
+
+
+防止在不同场景之间泄露状态：
+
+* 避免使用全局或者静态变量。
+
+* 确保在before Hook中清理数据库。
+
+* 如果在不同场景建共享浏览器，请在before Hooks中删除cookie。
+
+![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\65f9a9cb652d824bb8b9b9223a785efd587da3a9.png)
+
+
+
+如何实现在Step之间共享状态？
+
+方式一：Cucumber提供了基础的支持是使用对象的成员变量传递状态。
+
+               不推荐这样使用。因为必须要写在同一个类里面才能支持step之间的状态共享。
+
+方法二：依赖注入 or World Object
+
+
+
+4.2 Guice基础使用
+
+cucumber支持的DI容器：
+
+* PicoContanier
+
+* Spring
+
+* Guice
+
+* OpenEJB
+
+* Weld
+
+* Needle
+
+在使用DI框架时，所有步骤定义、钩子、转换器等都将由框架的实例注入器创建。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**tips：**
+
+1：新建feature文件时，文件后缀一定要加上feature。否则该文件不会被识别执行。
