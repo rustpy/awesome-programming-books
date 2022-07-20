@@ -356,8 +356,6 @@ Feature Index projects
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\1d5675f0acdc247983d12078c3aac7f2836799a9.png)
 
-
-
 **Hook有两种执行方式**
 
 BeforeAll/AffterAll：
@@ -369,8 +367,6 @@ BeforeAll/AffterAll：
 ▪ 不接受任何参数
 
 ▪ Order定义执行顺序
-
-
 
 ## 3、Step参数管理
 
@@ -387,8 +383,6 @@ BeforeAll/AffterAll：
 {string}：匹配字符串，例如“banana split”
 
 {} anonymous：匹配任意字符（/.*/等）
-
-
 
 3.1.2 cucumber-JVM-additions（JVM自带类型）
 
@@ -407,17 +401,11 @@ I have a {color} ball
 public Color color(String color){    // type,name(from method)
     return new Color(color)          // transformer function
 }
-
-
 ```
-
-
 
 3.1.3 Custom Parameter types（自定义类型）
 
 自定义类型。比如自定义一种颜色的方法，然后再步骤定义中引入。
-
-
 
 ### 3.2 可选文本
 
@@ -431,8 +419,6 @@ I have 1 cucumber in my belly
 I have 42 cucumbers in my belly
 ```
 
-
-
 备选文本：
 
 ```java
@@ -443,13 +429,9 @@ I have 42 cucumbers in my belly
 I have 42 cucumbers in my stomach
 ```
 
-
-
 转义字符：
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\efe427200423340035feb2e305536075ade3f403.png)
-
-
 
 ### 3.3 多行数据
 
@@ -470,8 +452,6 @@ Doc String 可以方便地将较大地文本传递给步骤定义
       """
 ```
 
-
-
 Data Tables 
 
 Data Tables 可以方便地将值列表传递给步骤定义：
@@ -483,10 +463,6 @@ Data Tables 可以方便地将值列表传递给步骤定义：
       | Julien | julien@cucumber.io | @jbpros         |
       | Matt   | matt@cucumber.io   | @mattwynne      |
 ```
-
-
-
-
 
 ### 3.4 Cucumber Transformers
 
@@ -501,8 +477,6 @@ Cucumber 表达式参数（Parameters）、Data Tables和Doc Strings可以转换
 ▪ Transposing Tables
 
 ▪ Defaulr Transformers
-
-
 
 feature & steps 代码示例：
 
@@ -560,7 +534,6 @@ Feature: sample step arguments demo
 
   Scenario: Cucumber Transformers - Default Transformers
     Given this is Json data: {firstName: 'alan',lastName: 'Luo',birthDate:'1986-09-17'}
-
 ```
 
 ```java
@@ -659,8 +632,6 @@ public class StepArgumentSteps {
         System.out.println(String.format("From Json author:[%s,%s,%s]", author.getFirstName(), author.getLastName(), author.getBirthDate()));
     }
 }
-
-
 ```
 
 Empty Cells
@@ -668,8 +639,6 @@ Empty Cells
 Gherkin中的数据表不能明确表示为空或者空字符串。
 
 cucumber将空单元格解释为null。通过replaceWithEmptyString将null转换为空。避免空指针的问题。
-
-
 
 Transposing Tables
 
@@ -689,8 +658,6 @@ Transposing Tables
       | lastName    | Luo           | Peng |
       | birthDate   | 1986-09-17    | 1916-09-13 |
 ```
-
-
 
 ### 4.5 Default Transformers
 
@@ -737,15 +704,9 @@ Feature:
     Given this is Json data: {firstName: 'alan',lastName: 'Luo',birthDate:'1986-09-17'}
 ```
 
-
-
 ## 4、状态管理
 
-
-
-4.1 概念简述：
-
-
+### 4.1 概念简述：
 
 什么是状态管理？
 
@@ -754,8 +715,6 @@ Feature:
 * T所有用例执行框架都提供了状态管理
 
 *重要的是要防止由一个场景产生的状态泄露给其他场景。泄露的场景状态会使场景变得脆弱并难以单独运行。
-
-
 
 防止在不同场景之间泄露状态：
 
@@ -767,8 +726,6 @@ Feature:
 
 ![](E:\Apersonal\awesome-programming-books\Notes\工具学习\assets\65f9a9cb652d824bb8b9b9223a785efd587da3a9.png)
 
-
-
 如何实现在Step之间共享状态？
 
 方式一：Cucumber提供了基础的支持是使用对象的成员变量传递状态。
@@ -777,9 +734,7 @@ Feature:
 
 方法二：依赖注入 or World Object
 
-
-
-4.2 Guice基础使用
+### 4.2 Guice基础使用
 
 cucumber支持的DI容器：
 
@@ -797,25 +752,150 @@ cucumber支持的DI容器：
 
 在使用DI框架时，所有步骤定义、钩子、转换器等都将由框架的实例注入器创建。
 
+### 4.3 Guice高级配置
+
+搭建框架
+
+## 5、配置管理
+
+### 5.1 cucumber配置项
+
+配置常用方式：
+
+1. @cucumber注解
+
+```java
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+        plugin = {"pretty",
+//                "html:target/cucumber-report.html",
+//                "json:target/cucumber-json.json",
+                "html:test-output",
+                "json:target/cucumber-report/cucumber.json",
+                "io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"
+        },
+        //tags = "@debug",
+        features = "src/test/resources/test-case",
+        objectFactory = CustomObjectFactory.class
+)
+public class C
+```
+
+1. cucumber.properties配置文件
+
+新建一个cucumber.properties文件，然后编辑相应配置：
+
+cucumber将按优先级顺序解析属性，从系统属性、环境变量和cucumber.peoperties文件
+
+## 6、Mock & Assert的封装
+
+[Mocking and Stubbing with Cucumber - Cucumber Documentation](https://cucumber.io/docs/cucumber/mocking-and-stubbing-with-cucumber/)
+
+Mockito
+
+Mockito是一个用于为TDD或BDD的框架，用处为在自动化单元测试中创建测试替身（Test Doubles）的框架。
+
+https://github.com/mockito/mockito/wiki
+
+https://site.mockito.org/
+
+MockServer
+
+https://www.mock-server.com/
+
+WireMock
+
+WireMock是一个基于http的api模拟器，类似于MockServer。
+
+http://wiremock.org/
+
+http://wiremock.org/docs/
+
+cucumber没有附带的断言方法
+
+当需要使用单元测试工具中的断言方法时，需要单独引用对应那个单元测试类库。
+
+## 7、Cucumber可视化报表
+
+Cucumber支持的报表：
+
+* cucumber Reports Services（cucumber自带）
+
+* 内置报表插件
+
+* Third-party plugins （第三方插件） -推荐
+
+内置的报表插件：
+
+* message、progress、pretty、html、json、retun、junit、testng
+
+第三方插件：
+
+Allure Report
+
+首先需要安装Scoop：
+
+```java
+Invoke-Expression(New-Object System.NetWebClient).DowloadString('https:get.scoop.sh')
+# or shorter
+iwr -useb get.scoop.sh | iex
+
+如遇到权限问题：
+Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+
+卸载：
+del .\scoop -Force
+
+验证是否安装成功
+scoop help
+```
+
+然后使用scoop安装Allure
+
+```java
+scoop install allure
+scoop update allure
 
 
+验证安装是否成功
+allure --version
+```
 
+配置引用以及插件：
 
+* cucumber-java、cucumber-Junit、Junit、allure-cucumber{version}-jvm、allure-junit{version}
 
+执行完用例后会生成allure-results的文件夹
 
+```java
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
 
+@RunWith(Cucumber.class)
+@CucumberOptions(
+        plugin = {"pretty",
+//                "html:target/cucumber-report.html",
+//                "json:target/cucumber-json.json",
+                "html:test-output",
+                "json:target/cucumber-report/cucumber.json",
+                "io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"
+        },
+        //tags = "@debug",
+        features = "src/test/resources/test-case",
+        objectFactory = CustomObjectFactory.class
+)
+public class CucumberRunner {
+}
+```
 
+在allure-result的上一层文件夹处打开terminal，输入：allure serve
 
-
-
-
-
-
-
-
-
-
-
+会直接生成report报表。
 
 **tips：**
 
