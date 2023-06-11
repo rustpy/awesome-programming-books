@@ -1,43 +1,34 @@
-# JAVA笔记
+# JAVA基础
 
-java学习笔记，用于记录spring boot 和mybatis还有reactor的运用。
+java全栈知识体系：https://pdai.tech/md/java/basic/java-basic-x-generic.html
 
 java学习路线：https://www.bilibili.com/read/cv9965357
 
-**入门：** Java SE基础 → Java Web(含数据库+H5+js+vue)
+**入门：** Java SE → Java Web(含数据库+H5+js+vue)
 
-**中级：** Maven → Git → SSM框架 →Spring高级→ MybatisPlus → Spring Boot→ 《传智健康》项目实战 → 《瑞吉外卖》项目实战
+**中级：** SSM（Spring SpringMVC  MyBatis）框架 →Spring Boot
 
-**进阶：** Spring Cloud(微服务开发,学这一套就够了) 也可以按照以下技术点学： 
-Dubbo → Zookeeper → RabbitMQ → RocketMQ → Docker → Redis → MongoDB → 搜索技术Elasticsearch → MySQL进阶
-
-项目：《学成在线》在线教育→《SaaSiHRM》企业服务 → 《好客租房》生活服务 → 权限管理一体化解决方案 → 短信网关平台
-
-面试： 数据结构与算法 →  Java大厂面试专题课 → Java百度地图
+**进阶：** Spring Cloud
 
 
 
-## 1、Java面向对象
-
-Java面向对象（Object-Oriented Programming，简称OOP）是一种编程范式，它将现实世界中的事物抽象为对象，通过定义对象的属性和行为来描述对象的特征，并通过对象之间的互动来实现功能。Java是一种面向对象的编程语言，它支持面向对象编程的三大特性：封装、继承和多态。
-
-封装是指将对象的属性和行为封装在一起，以隐藏对象的实现细节并保护其数据的安全性，只对外暴露必要的接口。
-
-继承是指通过定义一个新的子类来继承父类的属性和行为，子类可以增加自己的属性和行为，也可以重写父类的方法。
-
-多态是指同一种行为可以具有不同的表现形式，不同的子类可以对相同的消息作出不同的响应，使程序具有更好的扩展性和灵活性。
-
-### 1.1、java继承
-
-继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或子类从父类继承方法，使得子类具有父类相同的行为。
-
-继承类型：
-
-![img](assets/java-extends-2020-12-08.png)
+Java入门基础视频教程：https://www.bilibili.com/video/BV1Cv411372m/?spm_id_from=333.999.0.0&vd_source=c72f3b18d4102d04acc65f53171cc909
 
 
 
+## 1、常见问题
 
+**Java面向对象**（Object-Oriented Programming，简称OOP）三大特性：封装、继承和多态。
+
+继承: 是指通过定义一个新的子类来继承父类的属性和行为，子类可以增加自己的属性和行为，也可以重写父类的方法。
+
+封装: 是指将对象的属性和行为封装在一起，以隐藏对象的实现细节并保护其数据的安全性，只对外暴露必要的接口。
+
+多态: 是指同一种行为可以具有不同的表现形式，不同的子类可以对相同的消息作出不同的响应，使程序具有更好的扩展性和灵活性。
+
+
+
+### 常见关键字
 
 **implements关键字**
 
@@ -116,150 +107,27 @@ final class 类名 {//类体}
 
 
 
-## 2、重写与重载
+### 重写与重载
 
 方法的重写(Overriding)和重载(Overloading)是java多态性的不同表现，重写是父类与子类之间多态性的一种表现，重载可以理解成多态的具体表现形式。
 
-- (1)方法重载是一个类中定义了多个方法名相同,而他们的参数的数量不同或数量相同而类型和次序不同,则称为方法的重载(Overloading)。
-- (2)方法重写是在子类存在方法与父类的方法的名字相同,而且参数的个数与类型一样,返回值也一样的方法,就称为重写(Overriding)。
-- (3)方法重载是一个类的多态性表现,而方法重写是子类与父类的一种多态性表现。
+重载：就是同样的一个方法能够根据输入数据的不同，做出不同的处理
 
-总结：
-
-重载就是同样的一个方法能够根据输入数据的不同，做出不同的处理
-
-重写就是当子类继承自父类的相同方法，输入数据一样，但要做出有别于父类的响应时，你就要覆盖父类方法
+重写：就是当子类继承自父类的相同方法，输入数据一样，但要做出有别于父类的响应时，你就要覆盖父类方法
 
 ![img](assets/overloading-vs-overriding.png)
 
 
 
-### 2.1、重写
-
-重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。**即外壳不变，核心重写！**
-
-重写的好处在于子类可以根据需要，定义特定于自己的行为。 也就是说子类能够根据需要实现父类的方法。
-
-重写方法不能抛出新的检查异常或者比被重写方法申明更加宽泛的异常。例如： 父类的一个方法申明了一个检查异常 IOException，但是在重写这个方法的时候不能抛出 Exception 异常，因为 Exception 是 IOException 的父类，抛出 IOException 异常或者 IOException 的子类异常。
-
-在面向对象原则里，重写意味着可以重写任何现有方法。实例如下：
-
-```java
-class Animal{
-   public void move(){
-      System.out.println("动物可以移动");
-   }
-}
- 
-class Dog extends Animal{
-   public void move(){
-      System.out.println("狗可以跑和走");
-   }
-   public void bark(){
-      System.out.println("狗可以吠叫");
-   }
-}
- 
-public class TestDog{
-   public static void main(String args[]){
-      Animal a = new Animal(); // Animal 对象
-      Animal b = new Dog(); // Dog 对象,注意此处是Animal类型而不是Dog类型
- 
-      a.move();// 执行 Animal 类的方法
-      b.move();//执行 Dog 类的方法
-      b.bark();
-   }
-}
-
-/*
-TestDog.java:30: cannot find symbol
-symbol  : method bark()
-location: class Animal
-                b.bark();
-                 ^
-该程序将抛出一个编译错误，因为b的引用类型Animal没有bark方法。如果去掉"b.bark();"即可正常输出，因为b的引用类型Animal中有move方法
-*/
-```
-
-### 2.2、重载
-
-重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。
-
-每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。
-
-最常用的地方就是构造器的重载。
-
-例：重载是同样的一个方法写多次变量修饰符不一样，当调用方法时，会自动判断给入数的类型，选取其中符合的方法。
-
-```java
-public class Overloading {
-    private static int i = 1;
-    private static double l = 3.1415;
-    private static String k = "我是栗子";
-
-    //参数类型不同
-    public void test(int a){
-        System.out.println("你输入了整数:"+a);
-    }   
- 
-    public void test(double a){
-        System.out.println("你输入了浮点数:"+a);
-    }   
- 
-    public void test(String a){
-        System.out.println("你输入了字符串:"+a);
-    }   
- 
-    public static void main(String[] args){
-        Overloading lizi = new Overloading();
-        lizi.test(i);
-        lizi.test(l);
-        lizi.test(k);
-    }
-}
-/*
-输出结果：
-你输入了整数：1
-你输入了浮点数：3.1415
-你输入了字符串：我是栗子
-*/
-```
 
 
-
-## 3、接口与类的区别
+### 接口与类的区别
 
 接口（英文：Interface），在JAVA编程语言中是一个抽象类型，是抽象方法的集合，接口通常以interface来声明。一个类通过继承接口的方式，从而来继承接口的抽象方法。
 
-接口并不是类，编写接口的方式和类很相似，但是它们属于不同的概念。类描述对象的属性和方法。接口则包含类要实现的方法。
-
-1.接口可以多继承
-
-2.接口的方法声明必须是 public abstract 即便不写默认也是
-
-3.接口里面不能包含方法具体实现
-
-4.类实继承接口必须实现接口里申明的全部方法，除非该类是抽象类
-
-5.类里面可以声明 public static final 修饰的变量
-
-6.接口不能被实例化，但是可以被实现类创建
-
-### 3.1、接口与类相似点
-
-- 一个接口可以有多个方法。
-- 接口文件保存在 .java 结尾的文件中，文件名使用接口名。
-- 接口的字节码文件保存在 .class 结尾的文件中。
-- 接口相应的字节码文件必须在与包名称相匹配的目录结构中。
-
-### 3.2、接口与类的区别
-
-- 接口不能用于实例化对象。
-- 接口没有构造方法。
-- 接口中所有的方法必须是抽象方法，Java 8 之后 接口中可以使用 default 关键字修饰的非抽象方法。
-- 接口不能包含成员变量，除了 static 和 final 变量。
-- 接口不是被类继承了，而是要被类实现。
-- 接口支持多继承。
+- 类和类之间是继承关系
+- 接口和接口之间是继承关系
+- 类和接口之间是实现关系（类实现接口）
 
 ```java
 /* 文件名 : Animal.java */
@@ -271,9 +139,80 @@ interface Animal {
 
 
 
-## 4、实际问题
+### Java三元运算符
 
-4.1 get和set用法
+```java
+	int a = 99;
+	int b = 10;
+	int result = a > b ? a++ : b--
+	System,out.print(result); //输出为99，此时a为100，b为10
+```
+
+
+
+### 单引号与双引号的区别
+
+** java中单引号与双引号的区别：**
+
+单引号的数据是char类型，如char[] arr={'a','b'}; 为char类型。
+
+双引号的数据是String类型，如String[] arr = {"a","b","c"}; 为string类型。
+
+
+
+### 常见方法定义
+
+https://www.cnblogs.com/zhucc369/p/14716289.html
+
+类中的无返回值方法
+
+类中带有返回值类型的方法
+
+带有访问修饰符的方法（public、private、protected、默认方法）
+
+static修饰的方法（静态方法、类方法，静态变量（方法）访问方式：类名.变量名（方法名））
+
+实例方法（实例变量/方法需要先将类实例化后才可访问：对象名.变量名（方法名））
+
+final修饰的方法（修饰方法之后，此方法将表示最终的方法，不能在出现继承、重写等问题）
+
+构造函数方法（又称为“构造器”或者“构造方法”，用来加载类，在类创建实例的时候，会执行此方法。）
+
+接口中的方法（默认类型为 public static final 返回值类型 方法名()，默认写为“  返回值类型 方法名（参数列表...））
+
+泛型方法
+
+抽象类的方法
+
+类中的类方法（多用于单例工厂的方法）
+
+
+
+### static final区别
+
+final修饰变量时，该变量在类加载时就会被初始化，会因为对象的创建而创建加载。
+
+static修饰变量时，该变量将只被初始化一次，此后不再重新初始化。
+
+https://www.cnblogs.com/notably/p/11791542.html
+
+
+
+
+
+### **命名规范**
+
+变量名称：首字母小写+驼峰法 int phoneNumber = 123
+
+类名称：首字母大写+驼峰法 Hello.java
+
+数据库字段名称：小写+下划线 tab_description
+
+
+
+
+
+### **get和set用法**
 
 get&set方法使用前提：当要访问被private封装的属性时
 
@@ -290,6 +229,86 @@ get&set方法使用前提：当要访问被private封装的属性时
 总结：使用成员变量，若定义为private，则不可读，且不可写，该成员只能同过构造函数传值，其他情况无法使用。
 若定义为public， 则可读又可写，不安全。
 若想可读不可写，或可写不可读，就体现出get/set方法的用处了。
+
+
+
+```java
+public boolean convert(Boolean value){
+    return value == null ? false : value;
+}
+
+Boolean 必须为大写！成为封装类型
+```
+
+
+
+### Integer和int的区别
+
+1、数据类型不同：int 是基础数据类型，而 Integer 是包装数据类型；
+2、默认值不同：int 的默认值是 0，而 Integer 的默认值是 null；
+3、内存中存储的方式不同：int 在内存中直接存储的是数据值，而 Integer 实际存储的是对象引用，当 new 一个 Integer 时实际上是生成一个指针指向此对象；
+4、实例化方式不同：Integer 必须实例化才可以使用，而 int 不需要；
+5、变量的比较方式不同：int 可以使用 == 来对比两个变量是否相等，而 Integer 一定要使用 equals 来比较两个变量是否相等。
+
+
+
+### 缓存池
+
+缓存一些常用的数据能够提高程序的运行效率，java中给基本类型提供了缓存池，提高数据的读取速度。
+
+类型对应的缓冲池如下：
+
+Integer 缓存池的大小默认为 -128~127。
+
+boolean values true and false
+
+all byte values
+
+short values between -128 and 127
+
+int values between -128 and 127
+
+char in the range \u0000 to \u007F
+
+
+
+### String, StringBuffer and StringBuilder
+
+**1. 可变性**
+
+- String 不可变
+- StringBuffer 和 StringBuilder 可变
+
+**2. 线程安全**
+
+- String 不可变，因此是线程安全的
+- StringBuilder 不是线程安全的
+- StringBuffer 是线程安全的，内部使用 synchronized 进行同步
+
+
+
+**不同类型list值转换**
+
+```java
+// 将List<AirlineBasicInfo> 传给List<FlightGroupInfo>
+
+List<FlightGroupInfo> groupInfoList = aIContentRequest.getAirlineBasicInfo().stream().map(airlineBasicInfo -> {
+     FlightGroupInfo group = new FlightGroupInfo();
+     group.setAirlines(airlineBasicInfo.getAirlines());
+     return group;
+ }).collect(Collectors.toList());
+
+
+ List<FlightGroupInfo> flightGroupInfos = new ArrayList<>();
+ for (AirlineBasicInfo basicInfo: aIContentRequest.getAirlineBasicInfo() ) {
+     FlightGroupInfo groupInfo = new FlightGroupInfo();
+     groupInfo.setAirlines(basicInfo.getAirlines());
+     groupInfo.setFlightNoGroup(basicInfo.getFlightNoGroup());
+     flightGroupInfos.add(groupInfo);
+ }
+```
+
+
 
 
 
