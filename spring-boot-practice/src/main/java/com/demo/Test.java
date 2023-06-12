@@ -4,6 +4,7 @@ import java.text.Collator;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import javax.swing.Spring;
 
 
 /**
@@ -20,14 +21,24 @@ public class Test {
 //            System.out.println(str);
 //        }
 
-        String targetCity = "SHA,BJS";
-        String gpsCity = "AAA";
-        Boolean test = targetCity.contains(gpsCity);
-        if(targetCity.contains(gpsCity)){
-            System.out.println("true");
-        } else {
-            System.out.println("false");
-        }
+//        String targetCity = "SHA,BJS";
+//        String gpsCity = "AAA";
+//        Boolean test = targetCity.contains(gpsCity);
+//        if(targetCity.contains(gpsCity)){
+//            System.out.println("true");
+//        } else {
+//            System.out.println("false");
+//        }
+
+        String CurrentPrice = "100";
+        String SalePrice = "99";
+        String[] str = SalePrice.split("\\.");
+        System.out.println(str[0]);
+
+
+
+        Integer taxPrice = Math.toIntExact(Integer.parseInt(CurrentPrice)-Integer.parseInt(str[0]));
+        System.out.println(taxPrice);
 
 
     }
