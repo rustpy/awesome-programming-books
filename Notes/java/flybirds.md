@@ -2,15 +2,31 @@
 
 ## 简介
 
-需要学习的内容：**javascript&nodejs**，**python**，java&spring boot，html，android adb命令，shell脚本，mongoDB(基础)，jekins，mysql，**airtest**， C++,  redis,  xcode,  android studio,  adb命令
+工具类：jekins，appium，adb，xcode,  android studio,shell
 
-当前项目：
+语言类：java，python，C++，shell，javascript
+
+框架类：spring boot， nodejs， airtest， flybirds
+
+数据库：redis，mongoDB，mysql
+
+其他：游戏开发unity3D，大模型，stable diffusion
+
+
+
+
+
+**当前项目：**
 
 nodejs实现websocke转发
 
 稳定，性能，断线重连，现有的webscoket开源框架
 
+滑动拆解为三步：
 
+press  down ---   move(查找分析元素) ---  up
+
+模拟一直按压滑动，poco有现成的方案
 
 
 
@@ -191,6 +207,10 @@ http://git.dev.sh.ctripcorp.com/flight-mobile-qatools/trip-flybird-extend/-/merg
 
 
 
+此处实现语句为： 向下查找[insurance_add_button]的元素，其中"下"为直接传递过去的参数，没有[]
+
+![image-20240531134155465](assets/image-20240531134155465.png)
+
 
 
 
@@ -232,6 +252,22 @@ run -P features\test\android\replay.feature --define platform=android --define b
 2、ffmpeg app录制视频调优，由原来的2G下降为300M，视频质量稍微下降（原因：H.264格式改为webm格式）
 
 4、通过nodejs  websocket 实现转发功能
+
+5、重写滑动操作：
+
+滑动cmd：d 0 0.5 0.666 0.5   --- m 0 0.5 0.6178518518518519 50
+
+
+
+```
+向{param}滑动并且查找[{selector}]元素
+```
+
+1、获取设备分辨率，根据方向确定起始位置，先查询是否存在元素 - 如果存在 - 跳出循环并up（尝试不执行UP看能都实现点击操作）
+
+2、滑动半屏后，停顿1-2秒查询是否存在元素
+
+3、如何确定是否滑动到底部或者顶部？
 
 
 

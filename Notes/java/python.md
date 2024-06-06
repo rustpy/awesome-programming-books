@@ -9,6 +9,24 @@ Python3 的六个标准数据类型中：
 - **可变数据（3 个）：**List（列表）、Dictionary（字典）、Set（集合）。
 
   
+  
+  公司github账号：
+  
+  yong.peng@trip.com
+  
+  Shangahi2024~
+  
+  
+
+### 1.1、pycharm**基础知识：**
+
+1、debuger能看到代码执行链路
+
+2、Evalute能执行并查看代码属性
+
+![image-20240605001756846](assets/image-20240605001756846.png)
+
+
 
 ### 1.1、**基础知识：**
 
@@ -43,38 +61,6 @@ class FfmpegVidWriter:
     """
     def __init__(self, outfile, width, height, fps=10, orientation=0):
         self.fps = fps
-        self.orientation = RECORDER_ORI.get(str(orientation).upper(), orientation)
-        self.height = max(width, height)
-        self.width = min(width, height)
-        self.width = self.height = max(width, height)
-
-        # 满足视频宽高条件
-        self.height = height = self.height - (self.height % 32) + 32
-        self.width = width = self.width - (self.width % 32) + 32
-        self.cache_frame = np.zeros((height, width, 3), dtype=np.uint8)
-
-        try:
-            subprocess.Popen("ffmpeg", stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).wait()
-        except FileNotFoundError:
-            from airtest.utils.ffmpeg import ffmpeg_setter
-            try:
-                ffmpeg_setter.add_paths()
-            except Exception as e:
-                print("Error: setting ffmpeg path failed, please download it at https://ffmpeg.org/download.html then add ffmpeg path to PATH")
-                raise
-
-        self.process = (
-            ffmpeg
-            .input('pipe:', format='rawvideo', pix_fmt='rgb24',
-                s='{}x{}'.format(width, height), framerate=self.fps)
-            .output(outfile, pix_fmt='yuv420p', vcodec='libx264', crf=25,
-                    preset="veryfast", framerate=self.fps)
-            .global_args("-loglevel", "error")
-            .overwrite_output()
-            .run_async(pipe_stdin=True)
-        )
-
-        self.writer = self.process.stdin
 
     def process_frame(self, frame):
         assert len(frame.shape) == 3
@@ -83,16 +69,7 @@ class FfmpegVidWriter:
         self.cache_frame[h_st:h_ed, w_st:w_ed, :] = frame[:(h_ed-h_st), :(w_ed-w_st)]
         return self.cache_frame.copy()
 
-    def write(self, frame):
-        self.writer.write(frame.astype(np.uint8))
-
-    def close(self):
-        self.writer.close()
-        self.process.wait()
-        self.process.terminate()
 ```
-
-
 
 
 
@@ -110,10 +87,17 @@ class FfmpegVidWriter:
 
 Python 列表截取可以接收第三个参数，参数作用是截取的步长，以下实例在索引 1 到索引 4 的位置并设置为步长为 2（间隔一个位置）
 
-![image-20240516141246060](assets/image-20240516141246060.png)
+![image-20240530181319782](assets/image-20240530181319782.png)
+
+
+
+输出结果为[o,u]
 
 
 
 ## 2、python进阶
 
-### 2.1、
+python进阶知识
+
+### 2.1、闭包
+
